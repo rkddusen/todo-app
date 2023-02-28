@@ -1,8 +1,12 @@
 import './App.css';
+import Nav from './component/Nav';
+import Category from './component/Category';
 
 function App() {
   return (
-    <div className="App">
+    <div className="app">
+      <Nav></Nav>
+      <Category></Category>
     </div>
   );
 }
