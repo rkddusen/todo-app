@@ -10,8 +10,11 @@ function App() {
   },{
     category:'일반',
     desc:'할일2'
+  },{
+    category:'카테고리2',
+    desc:'할일1'
   }]);
-  const [category, setCategory] = useState(['일반']);
+  const [category, setCategory] = useState(['일반', '카테고리2']);
   const [cateForm, setCateForm] = useState([]);
 
   useEffect(()=>{
@@ -23,7 +26,19 @@ function App() {
           _todo.push(todo[j].desc);
         }
       }
-      _cateform.push(<Category key={i} category={category[i]} todo={_todo}></Category>);
+      _cateform.push(
+        <Category
+          key={i}
+          category={category[i]}
+          todo={_todo}
+          onWrite={(data) => {
+            setTodo([...todo, {
+              category: category[i],
+              desc: data
+            }]);
+          }}
+          ></Category>
+      );
     }
     setCateForm(_cateform);
   },[todo, category])
