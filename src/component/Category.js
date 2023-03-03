@@ -1,10 +1,17 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Form from './Form';
 
 function Category(props) {
-  const { category, todo, onWrite } = props;
+  const { category, todo, onWrite, isOpen, setIsOpen } = props;
   const [isAdd, setIsAdd] = useState(false);
 
+  useEffect(()=>{
+    if(isOpen !== '' && isOpen !== category && isAdd) setIsAdd(false);
+  },[isOpen]);
+
+  useEffect(()=>{
+    isAdd && setIsOpen(category);
+  }, [isAdd]);
   return (
     <div className="category">
         <div></div>

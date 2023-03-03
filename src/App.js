@@ -14,8 +14,9 @@ function App() {
     category:'카테고리2',
     desc:'할일1'
   }]);
-  const [category, setCategory] = useState(['일반', '카테고리2']);
+  const [category, setCategory] = useState(['일반','카테고리2']);
   const [cateForm, setCateForm] = useState([]);
+  const [isOpen, setIsOpen] = useState('');
 
   useEffect(()=>{
     let _cateform = [];
@@ -37,11 +38,13 @@ function App() {
               desc: data
             }]);
           }}
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
           ></Category>
       );
     }
     setCateForm(_cateform);
-  },[todo, category])
+  },[category, todo, isOpen])
   return (
     <div className="app">
       <Nav></Nav>
