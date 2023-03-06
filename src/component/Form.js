@@ -1,17 +1,25 @@
 import { useState, useEffect, useRef } from 'react';
 
 function Form(props) {
-  const { setIsAdd, onWrite } = props;
+  const { type, setForm, onWrite, data } = props;
   const [value, setValue] = useState('');
   const inputRef = useRef(null);
 
   useEffect(()=>{
     if(value){
-      onWrite(value);
-      setValue('');
-      setIsAdd(false);
+      if(type === 1){
+        onWrite(value);
+        setValue('');
+        setForm(false);
+      }
+      else {
+        onWrite(value);
+        setValue('');
+        setForm(-1);
+      }
     }
   },[value])
+
 
   return (
     <div className="form">
@@ -20,12 +28,14 @@ function Form(props) {
           ref={inputRef}
           onKeyUp={() => {
             if(window.event.keyCode === 13) setValue(inputRef.current.value);
-          }}></input>
+          }}
+          placeholder={type === 2 ? null : "할 일을 입력하세요!"}
+          defaultValue={type === 2 ? data : null}></input>
         <button
           type='button'
           onClick={()=>{
             setValue(inputRef.current.value);
-          }}>추가</button>
+          }}>{type === 2 ? '변경' : '추가' }</button>
     </div>
   );
 }
