@@ -8,12 +8,21 @@ function Category(props) {
   const [isUpdate, setIsUpdate] = useState(-1);
 
   useEffect(()=>{
-    if(isOpen !== '' && isOpen !== category && isAdd) setIsAdd(false);
+    if(isOpen !== '' && isOpen !== category && (isAdd || isUpdate !== -1)) {
+      setIsAdd(false);
+      setIsUpdate(-1);
+    }
   },[isOpen]);
 
   useEffect(()=>{
     isAdd && setIsOpen(category);
+    isAdd && setIsUpdate(-1);
   }, [isAdd]);
+
+  useEffect(()=>{
+    isUpdate !== -1 && setIsAdd(false);
+    isUpdate !== -1 && setIsOpen(category);
+  },[isUpdate])
 
   useEffect(()=>{
     let _form = [];
