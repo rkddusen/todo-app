@@ -30,22 +30,37 @@ function App() {
           _todo.push({id:todo[j].id, desc:todo[j].desc});
         }
       }
-    console.log(_todo);
       _cateform.push(
         <Category
           key={i}
           category={category[i]}
           todo={_todo}
           onCreate={(data) => {
+            let _id = todo[todo.length - 1].id;
             setTodo([...todo, {
-              id:todo.length,
+              id:_id + 1,
               category: category[i],
               desc: data
             }]);
           }}
           onUpdate={(id, data)=>{
             let changeTodo = Array.from(todo);
-            changeTodo[id].desc = data;
+            for(let i = 0; i < todo.length; i++){
+              if(changeTodo[i].id === id){
+                changeTodo[i].desc = data;
+                break;
+              }
+            }
+            setTodo(changeTodo);
+          }}
+          onDelete={(id)=>{
+            let changeTodo = Array.from(todo);
+            for(let i = 0; i < todo.length; i++){
+              if(changeTodo[i].id === id){
+                changeTodo.splice(i,1);
+                break;
+              }
+            }
             setTodo(changeTodo);
           }}
           isOpen={isOpen}
@@ -57,7 +72,10 @@ function App() {
   },[category, todo, isOpen])
   return (
     <div className="app">
-      <Nav></Nav>
+      <Nav
+        category={category}
+        setCategory={setCategory}
+      ></Nav>
       {cateForm}
     </div>
   );
