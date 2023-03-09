@@ -70,11 +70,14 @@ function App() {
     }
     setCateForm(_cateform);
   },[category, todo, isOpen])
+
   return (
     <div className="app">
       <Nav
         category={category}
         setCategory={setCategory}
+        todo={todo}
+        setTodo={setTodo}
       ></Nav>
       {cateForm}
     </div>

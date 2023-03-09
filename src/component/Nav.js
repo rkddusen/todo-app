@@ -2,7 +2,7 @@ import { useState } from "react";
 import Setting from "./Setting";
 
 function Nav(props) {
-  const { category, setCategory } = props;
+  const { category, setCategory,  todo, setTodo } = props;
   const [isOpen, setIsOpen] = useState(false);
 
   return (
@@ -16,7 +16,7 @@ function Nav(props) {
       >
         ☸︎
       </p>
-      {isOpen ? <Setting category={category} setCategory={setCategory}></Setting> : null}
+      {isOpen ? <Setting category={category} setCategory={setCategory} todo={todo} setTodo={setTodo}></Setting> : null}
     </div>
   );
 }
