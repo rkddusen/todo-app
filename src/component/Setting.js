@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import styled from "styled-components";
 
 function Setting(props) {
   const { category, setCategory, todo, setTodo } = props;
@@ -8,16 +9,16 @@ function Setting(props) {
     let _allCategory = [];
     for (let i = 0; i < category.length; i++) {
       _allCategory.push(
-        <div key={i}>
-          <span>{category[i]}</span>
+        <CategoryLi key={i}>
+          <Category>{category[i]}</Category>
           <span onClick={() => DeleteCategory(i)}>×</span>
-        </div>
+        </CategoryLi>
       );
     }
     _allCategory.push(
-      <div key={-1}>
+      <CategoryLi key={-1}>
         <span onClick={PlusCategory}>+</span>
-      </div>
+      </CategoryLi>
     );
     setAllCategory(_allCategory);
   }, [category, todo]);
@@ -56,17 +57,55 @@ function Setting(props) {
       setTodo(_todo);
     }
   }
+
   return (
-    <div className="setting">
-      <div className="setting-area">
-        <div>
-          <p>카테고리</p>
-          <div>{allCategory}</div>
-        </div>
-        <div></div>
-      </div>
-    </div>
+    <StyledSetting>
+      <SettingArea>
+          <CategoryTitle>카테고리</CategoryTitle>
+          <CategoryUl>{allCategory}</CategoryUl>
+      </SettingArea>
+    </StyledSetting>
   );
 }
+
+const StyledSetting = styled.div`
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+  position: fixed;
+  background-color: #00000090;
+`;
+const SettingArea = styled.div`
+  width: 300px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  background-color: white;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 20px;
+`;
+const CategoryTitle = styled.div`
+  font-size: 23px;
+  font-weight: bold;
+  padding-bottom: 20px;
+`;
+const CategoryUl = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
+const CategoryLi = styled.div`
+  padding: 10px;
+  margin: 5px 0;
+  text-align: center;
+`;
+const Category = styled.span`
+  padding-bottom: 2px;
+  border-bottom: 1px solid black;
+`;
+
 
 export default Setting;

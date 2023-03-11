@@ -2,6 +2,7 @@ import './App.css';
 import Nav from './component/Nav';
 import Category from './component/Category';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 function App() {
   const [todo, setTodo] = useState([{
@@ -72,7 +73,8 @@ function App() {
   },[category, todo, isOpen])
 
   return (
-    <div className="app">
+    <StyledApp>
+    <TodoBox>
       <Nav
         category={category}
         setCategory={setCategory}
@@ -80,8 +82,28 @@ function App() {
         setTodo={setTodo}
       ></Nav>
       {cateForm}
-    </div>
+    </TodoBox>
+    </StyledApp>
   );
 }
+
+const StyledApp = styled.div`
+  width : 500px;
+  height : 550px;
+  padding: 20px;
+  margin: 0 auto;
+`;
+const TodoBox = styled.div`
+height : 510px;
+  background-color: white;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 20px;
+
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 export default App;
