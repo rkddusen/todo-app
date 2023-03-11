@@ -128,10 +128,10 @@ const FormBtn = styled.button`
   font-size: 16px;
   padding: 5px;
   border: none;
-  background-color: #E6E6E6;
+  background-color: #ededed;
   &:hover{
     cursor: pointer;
-    background-color: #E1E1E1;
+    background-color: #E0E0E0;
   }
 `;
 
