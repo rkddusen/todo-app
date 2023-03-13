@@ -2,6 +2,7 @@ import './App.css';
 import Nav from './component/Nav';
 import Category from './component/Category';
 import { useEffect, useState } from 'react';
+import styled from 'styled-components';
 
 function App() {
   const [todo, setTodo] = useState([{
@@ -18,6 +19,7 @@ function App() {
     desc:'할일1'
   }]);
   const [category, setCategory] = useState(['일반','카테고리2']);
+  const [color, setColor] = useState(['#ffdddd', '#fff5de']);
   const [cateForm, setCateForm] = useState([]);
   const [isOpen, setIsOpen] = useState('');
 
@@ -34,6 +36,7 @@ function App() {
         <Category
           key={i}
           category={category[i]}
+          color={color[i]}
           todo={_todo}
           onCreate={(data) => {
             let _id = todo[todo.length - 1].id;
@@ -70,15 +73,41 @@ function App() {
     }
     setCateForm(_cateform);
   },[category, todo, isOpen])
+
   return (
-    <div className="app">
+    <StyledApp>
+    <TodoBox>
       <Nav
         category={category}
         setCategory={setCategory}
+        todo={todo}
+        setTodo={setTodo}
+        color={color}
+        setColor={setColor}
       ></Nav>
       {cateForm}
-    </div>
+    </TodoBox>
+    </StyledApp>
   );
 }
+
+const StyledApp = styled.div`
+  width : 500px;
+  height : 550px;
+  padding: 20px;
+  margin: 0 auto;
+`;
+const TodoBox = styled.div`
+height : 510px;
+  background-color: white;
+  box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
+  border-radius: 20px;
+  padding: 20px;
+
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+`;
 
 export default App;
