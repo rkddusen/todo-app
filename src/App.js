@@ -19,6 +19,7 @@ function App() {
     desc:'할일1'
   }]);
   const [category, setCategory] = useState(['일반','카테고리2']);
+  const [color, setColor] = useState(['#ffdddd', '#fff5de']);
   const [cateForm, setCateForm] = useState([]);
   const [isOpen, setIsOpen] = useState('');
 
@@ -35,6 +36,7 @@ function App() {
         <Category
           key={i}
           category={category[i]}
+          color={color[i]}
           todo={_todo}
           onCreate={(data) => {
             let _id = todo[todo.length - 1].id;
@@ -80,6 +82,8 @@ function App() {
         setCategory={setCategory}
         todo={todo}
         setTodo={setTodo}
+        color={color}
+        setColor={setColor}
       ></Nav>
       {cateForm}
     </TodoBox>

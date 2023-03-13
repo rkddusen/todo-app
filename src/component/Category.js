@@ -3,7 +3,7 @@ import Form from "./Form";
 import styled from "styled-components";
 
 function Category(props) {
-  const { category, todo, onCreate, onUpdate, onDelete, isOpen, setIsOpen } =
+  const { category, color, todo, onCreate, onUpdate, onDelete, isOpen, setIsOpen } =
     props;
   const [isAdd, setIsAdd] = useState(false);
   const [todoForm, setTodoForm] = useState([]);
@@ -31,7 +31,7 @@ function Category(props) {
     for (let i = 0; i < todo.length; i++) {
       _form.push(
         <div key={i}>
-          <TodoList>
+          <TodoList color={color}>
             <TodoLeft>
             <StyledSquare xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></StyledSquare>
               <p>{todo[i].desc}</p>
@@ -89,7 +89,7 @@ function Category(props) {
     <StyledCategory>
       <Title>
         <TitleLeft>
-        <StyledSquare xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="#000000" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></StyledSquare>
+          <StyledSquare xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill={color} stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></StyledSquare>
           <p>{category}</p>
         </TitleLeft>
         <div>
@@ -146,12 +146,6 @@ const TitleLeft = styled.div`
   display: flex;
   align-items: center;
 `;
-const ColorBox = styled.div`
-  width: 18px;
-  height: 18px;
-  margin-right: 10px;
-  background-color: #212121;
-`;
 const IsAddBtn = styled.p`
   cursor: pointer;
   &:hover {
@@ -166,7 +160,7 @@ const TodoList = styled.div`
   font-size: 18px;
   align-items: center;
   margin: 10px 0;
-  background-color: #FBEFEF;
+  background-color: ${(props) => props.color};
 `;
 const TodoLeft = styled.div`
   display: flex;
@@ -175,12 +169,6 @@ const TodoLeft = styled.div`
 const TodoRight = styled.div`
   display: flex;
   align-items: center;
-`;
-const CheckBox = styled.div`
-  width: 18px;
-  height: 18px;
-  margin-right: 10px;
-  background-color: lightgray;
 `;
 const IsUpdateDeleteBtn = styled.p`
   margin: 0 5px;

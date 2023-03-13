@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import styled from "styled-components";
 
 function Setting(props) {
-  const { category, setCategory, todo, setTodo, setIsOpen } = props;
+  const { category, setCategory, todo, setTodo, setIsOpen, color, setColor } = props;
   const [allCategory, setAllCategory] = useState([]);
   const [formOn, setFormOn] = useState(-1);
 
@@ -11,7 +11,10 @@ function Setting(props) {
     for (let i = 0; i < category.length; i++) {
       _allCategory.push(
         <CategoryLi key={i}>
-          <Category onClick={()=>{formOn === i ? setFormOn(-1) : setFormOn(i)}}>{category[i]}</Category>
+          <Category
+            onClick={()=>{formOn === i ? setFormOn(-1) : setFormOn(i)}}
+            bold={formOn === i ? 'bold' : null}
+          >{category[i]}</Category>
           {formOn === i ? 
           <CategoryForm>
             <FormBtn onClick={() => UpdateCategory(i)}>수정</FormBtn>
@@ -41,6 +44,7 @@ function Setting(props) {
           else if(_new === '') _new = window.prompt("추가할 카테고리 명을 입력해주세요!");
           else if(_new !== null) {
             setCategory([...category, _new]);
+            setColor([...color, '#eeeeee'])
             setFormOn(-1)
             break;
           }
@@ -48,6 +52,7 @@ function Setting(props) {
         }
       } else {
         setCategory([...category, _new]);
+        setColor([...color, '#eeeeee'])
         setFormOn(-1)
       }
     }
@@ -55,8 +60,11 @@ function Setting(props) {
   function DeleteCategory(index){
     if(window.confirm('해당 카테고리 내의 활동이 삭제됩니다.\n삭제하시겠습니까?')){
       let _category = Array.from(category);
+      let _color = Array.from(color);
       let trash = _category.splice(index,1);
+      _color.splice(index,1);
       setCategory(_category);
+      setColor(_color);
 
       let _todo = Array.from(todo);
       for(let i = todo.length - 1; i >= 0; i--){
@@ -180,6 +188,7 @@ const Category = styled.span`
   padding-bottom: 2px;
   border-bottom: 1px solid black;
   font-size: 18px;
+  font-weight: ${props => props.bold};
   &:hover{
     cursor: pointer;
     font-weight: bold;
