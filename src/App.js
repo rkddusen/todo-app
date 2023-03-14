@@ -19,7 +19,7 @@ function App() {
     desc:'할일1'
   }]);
   const [category, setCategory] = useState(['일반','카테고리2']);
-  const [color, setColor] = useState(['#ffdddd', '#fff5de']);
+  const [color, setColor] = useState(['#ffc4c4', '#ffd9c4']);
   const [cateForm, setCateForm] = useState([]);
   const [isOpen, setIsOpen] = useState('');
 
@@ -72,7 +72,7 @@ function App() {
       );
     }
     setCateForm(_cateform);
-  },[category, todo, isOpen])
+  },[category, todo, isOpen, color])
 
   return (
     <StyledApp>
