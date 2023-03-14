@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import styled from "styled-components";
+import Palette from './Palette';
 
 function Setting(props) {
   const { category, setCategory, todo, setTodo, setIsOpen, color, setColor } = props;
@@ -17,8 +18,13 @@ function Setting(props) {
           >{category[i]}</Category>
           {formOn === i ? 
           <CategoryForm>
-            <FormBtn onClick={() => UpdateCategory(i)}>수정</FormBtn>
+            <FormBtn onClick={() => UpdateCategory(i)}>이름 변경</FormBtn>
             <FormBtn onClick={() => DeleteCategory(i)}>삭제</FormBtn>
+            <Palette nowColor={color[i]} onChangeColor={(data)=>{
+              let _color = Array.from(color);
+              _color[i] = data;
+              setColor(_color);
+            }}></Palette>
           </CategoryForm>
           : null}
         </CategoryLi>
@@ -32,7 +38,7 @@ function Setting(props) {
       </CategoryLi>
     );
     setAllCategory(_allCategory);
-  }, [category, todo, formOn]);
+  }, [category, todo, formOn, color]);
 
   function PlusCategory() {
     let str = "추가할 카테고리 명을 입력해주세요!";
@@ -44,7 +50,7 @@ function Setting(props) {
           else if(_new === '') _new = window.prompt("추가할 카테고리 명을 입력해주세요!");
           else if(_new !== null) {
             setCategory([...category, _new]);
-            setColor([...color, '#eeeeee'])
+            setColor([...color, '#dedede'])
             setFormOn(-1)
             break;
           }
@@ -52,7 +58,7 @@ function Setting(props) {
         }
       } else {
         setCategory([...category, _new]);
-        setColor([...color, '#eeeeee'])
+        setColor([...color, '#dedede'])
         setFormOn(-1)
       }
     }
@@ -199,15 +205,16 @@ const CategoryForm = styled.div`
 `;
 const FormBtn = styled.button`
   font-size: 12px;
-  padding: 7px 30px;
+  padding: 7px 0px;
+  width: 80px;
   margin: 0 10px;
   border: none;
   border-radius: 20px;
-  background-color: #ededed;
+  background-color: #dedede;
 
   &:hover{
     cursor: pointer;
-    background-color: #e0e0e0;
+    background-color: #d0d0d0;
   }
 `;
 const CategoryPlus = styled.span`

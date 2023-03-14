@@ -83,7 +83,7 @@ function Category(props) {
       );
     }
     setTodoForm(_form);
-  }, [todo, isUpdate]);
+  }, [todo, isUpdate, color]);
 
   return (
     <StyledCategory>
