@@ -3,7 +3,7 @@ import Form from "./Form";
 import styled from "styled-components";
 
 function Category(props) {
-  const { category, color, todo, onCreate, onUpdate, onDelete, isOpen, setIsOpen } =
+  const { category, color, todo, onCreate, onUpdate, onDelete, isOpen, setIsOpen, onDone } =
     props;
   const [isAdd, setIsAdd] = useState(false);
   const [todoForm, setTodoForm] = useState([]);
@@ -33,8 +33,13 @@ function Category(props) {
         <div key={i}>
           <TodoList color={color}>
             <TodoLeft>
-            <StyledSquare xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></StyledSquare>
-              <p>{todo[i].desc}</p>
+              {todo[i].done ? 
+              <StyledSquare onClick={()=>{onDone(todo[i].id)}} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></StyledSquare>
+              :
+              <StyledSquare onClick={()=>{onDone(todo[i].id)}} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></StyledSquare>
+              }
+            
+              <StyledDesc done={todo[i].done}>{todo[i].desc}</StyledDesc>
             </TodoLeft>
             <TodoRight>
               {isUpdate === i ? (
@@ -83,7 +88,7 @@ function Category(props) {
       );
     }
     setTodoForm(_form);
-  }, [todo, isUpdate, color]);
+  }, [todo, isUpdate]);
 
   return (
     <StyledCategory>
@@ -129,6 +134,11 @@ const StyledSvg = styled.svg`
 `;
 const StyledSquare = styled.svg`
   margin-right: 10px;
+  min-width: 18px;
+
+  &:hover{
+    cursor: pointer;
+  }
 `;
 const StyledCategory = styled.div`
   margin: 10px 0 20px 0;
@@ -165,6 +175,11 @@ const TodoList = styled.div`
 const TodoLeft = styled.div`
   display: flex;
   align-items: center;
+`;
+const StyledDesc = styled.p`
+  text-decoration: ${props => props.done && 'line-through'};
+  min-width: 300px;
+  overflow-wrap: anywhere;
 `;
 const TodoRight = styled.div`
   display: flex;

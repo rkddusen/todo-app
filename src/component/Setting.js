@@ -210,11 +210,11 @@ const FormBtn = styled.button`
   margin: 0 10px;
   border: none;
   border-radius: 20px;
-  background-color: #dedede;
+  background-color: #ededed;
 
   &:hover{
     cursor: pointer;
-    background-color: #d0d0d0;
+    background-color: #e0e0e0;
   }
 `;
 const CategoryPlus = styled.span`

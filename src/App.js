@@ -8,15 +8,18 @@ function App() {
   const [todo, setTodo] = useState([{
     id:0,
     category:'일반',
-    desc:'할일1'
+    desc:'할일1',
+    done: true
   },{
     id:1,
     category:'일반',
-    desc:'할일2'
+    desc:'할일2',
+    done: false
   },{
     id:2,
     category:'카테고리2',
-    desc:'할일1'
+    desc:'할일1',
+    done: false
   }]);
   const [category, setCategory] = useState(['일반','카테고리2']);
   const [color, setColor] = useState(['#ffc4c4', '#ffd9c4']);
@@ -29,7 +32,7 @@ function App() {
       let _todo = [];
       for(let j = 0; j < todo.length; j++){
         if(category[i] === todo[j].category){
-          _todo.push({id:todo[j].id, desc:todo[j].desc});
+          _todo.push({id:todo[j].id, desc:todo[j].desc, done:todo[j].done});
         }
       }
       _cateform.push(
@@ -39,11 +42,13 @@ function App() {
           color={color[i]}
           todo={_todo}
           onCreate={(data) => {
-            let _id = todo[todo.length - 1].id;
+            let _id = 0;
+            if(todo.length >= 1) _id = todo[todo.length - 1].id + 1;
             setTodo([...todo, {
-              id:_id + 1,
+              id:_id,
               category: category[i],
-              desc: data
+              desc: data,
+              done: false
             }]);
           }}
           onUpdate={(id, data)=>{
@@ -68,6 +73,16 @@ function App() {
           }}
           isOpen={isOpen}
           setIsOpen={setIsOpen}
+          onDone={(id)=>{
+            let changeTodo = Array.from(todo);
+            for(let i = 0; i < todo.length; i++){
+              if(changeTodo[i].id === id){
+                changeTodo[i].done = !changeTodo[i].done;
+                break;
+              }
+            }
+            setTodo(changeTodo);
+          }}
           ></Category>
       );
     }
