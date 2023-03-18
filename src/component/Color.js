@@ -12,7 +12,7 @@ const Circle = styled.div`
   height: 30px;
   border-radius: 50%;
   background-color: ${(props) => props.color};
-  border: 2px solid ${props => props.check ? 'black' : 'white'};
+  border: 2px solid ${props => props.check ? 'black' : '#00000000'};
   margin: 5px 10px;
 
   &:hover{
