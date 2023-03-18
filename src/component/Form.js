@@ -67,13 +67,15 @@
 
 // export default Form;
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect, useRef, useContext } from 'react';
 import styled from 'styled-components';
+import ThemeContext from '../ThemeContext';
 
 function Form(props) {
   const { type, setForm, onWrite, data } = props;
   const [value, setValue] = useState('');
   const inputRef = useRef(null);
+  const theme = useContext(ThemeContext);
 
   useEffect(()=>{
     if(value){
@@ -94,6 +96,7 @@ function Form(props) {
   return (
     <StyledForm>
         <FormInput
+          theme={theme}
           type='text'
           ref={inputRef}
           onKeyUp={() => {
@@ -102,6 +105,7 @@ function Form(props) {
           placeholder={type === 2 ? null : "할 일을 입력하세요!"}
           defaultValue={type === 2 ? data : null}></FormInput>
         <FormBtn
+          color={theme.color}
           type='button'
           onClick={()=>{
             setValue(inputRef.current.value);
@@ -116,22 +120,32 @@ const StyledForm = styled.div`
   align-items: bottom;
 `;
 const FormInput = styled.input`
-  width: calc(100% - 80px);
+  width: calc(100% - 85px);
   border: none;
   box-sizing: border-box;
-  border-bottom: 2px solid #212121;
+  border-bottom: 2px solid ${props => props.theme.color};
   font-size: 16px;
   padding: 10px;
+  background: none;
+  color: ${props => props.theme.color};
+  &::placeholder{
+    color: ${props => props.theme.placeholder};
+  }
 `;
 const FormBtn = styled.button`
   width: 80px;
   font-size: 16px;
+  margin-left: 5px;
   padding: 5px;
+  background: none;
+  border-radius: 30px;
   border: none;
-  background-color: #ededed;
+  /* border: 2px solid ${props => props.color}; */
+  color: #424242;
+  background-color: #f0f0f0;
   &:hover{
     cursor: pointer;
-    background-color: #E0E0E0;
+    font-weight: bold;
   }
 `;
 

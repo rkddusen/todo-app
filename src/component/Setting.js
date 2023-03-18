@@ -1,11 +1,13 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import Palette from './Palette';
+import ThemeContext from '../ThemeContext';
 
 function Setting(props) {
   const { category, setCategory, todo, setTodo, setIsOpen, color, setColor } = props;
   const [allCategory, setAllCategory] = useState([]);
   const [formOn, setFormOn] = useState(-1);
+  const theme = useContext(ThemeContext);
 
   useEffect(() => {
     let _allCategory = [];
@@ -13,13 +15,14 @@ function Setting(props) {
       _allCategory.push(
         <CategoryLi key={i}>
           <Category
+            color={theme.color}
             onClick={()=>{formOn === i ? setFormOn(-1) : setFormOn(i)}}
-            bold={formOn === i ? 'bold' : null}
+            check={formOn === i ? true : false}
           >{category[i]}</Category>
           {formOn === i ? 
           <CategoryForm>
-            <FormBtn onClick={() => UpdateCategory(i)}>이름 변경</FormBtn>
-            <FormBtn onClick={() => DeleteCategory(i)}>삭제</FormBtn>
+            <FormBtn color={theme.color} onClick={() => UpdateCategory(i)}>이름 변경</FormBtn>
+            <FormBtn color={theme.color} onClick={() => DeleteCategory(i)}>삭제</FormBtn>
             <Palette nowColor={color[i]} onChangeColor={(data)=>{
               let _color = Array.from(color);
               _color[i] = data;
@@ -33,7 +36,7 @@ function Setting(props) {
     _allCategory.push(
       <CategoryLi key={-1}>
         <CategoryPlus onClick={PlusCategory}>
-        <StyledSvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></StyledSvg>
+        <StyledSvg svgHover={theme.svgHover} stroke={theme.color} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></StyledSvg>
         </CategoryPlus>
       </CategoryLi>
     );
@@ -121,12 +124,12 @@ function Setting(props) {
 
   return (
     <StyledSetting>
-      <SettingArea>
+      <SettingArea areaColor={theme.areaColor}>
         <SettingNav>
           <SettingTitle>카테고리</SettingTitle>
-          <SettingOut onClick={()=>{setIsOpen(false)}}>
-            <StyledSvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></StyledSvg>
-          </SettingOut>
+          {/* <SettingOut onClick={()=>{setIsOpen(false)}}> */}
+            <StyledSvg svgHover={theme.svgHover} stroke={theme.color} onClick={()=>{setIsOpen(false)}} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></StyledSvg>
+          {/* </SettingOut> */}
         </SettingNav>
           <CategoryUl>{allCategory}</CategoryUl>
       </SettingArea>
@@ -136,7 +139,8 @@ function Setting(props) {
 
 const StyledSvg = styled.svg`
   &:hover{
-    stroke: #000000;
+    stroke: ${props => props.svgHover};
+    cursor: pointer;
   }
 `;
 const StyledSetting = styled.div`
@@ -154,7 +158,7 @@ const SettingArea = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  background-color: white;
+  background-color: ${props => props.areaColor};
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   padding: 20px;
@@ -174,13 +178,6 @@ const SettingTitle = styled.p`
   font-size: 25px;
   font-weight: bold;
 `;
-const SettingOut = styled.p`
-  font-size: 25px;
-  &:hover{
-    cursor: pointer;
-    font-weight: bold;
-  }
-`;
 const CategoryUl = styled.div`
   display: flex;
   flex-direction: column;
@@ -192,12 +189,12 @@ const CategoryLi = styled.div`
 `;
 const Category = styled.span`
   padding-bottom: 2px;
-  border-bottom: 1px solid black;
+  border-bottom: 1px solid ${props => props.color};
   font-size: 18px;
-  font-weight: ${props => props.bold};
+  font-weight: ${props => props.check ? 600 : "none"};
   &:hover{
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
   }
 `;
 const CategoryForm = styled.div`
@@ -210,18 +207,19 @@ const FormBtn = styled.button`
   margin: 0 10px;
   border: none;
   border-radius: 20px;
-  background-color: #dedede;
+  color: #424242;
+  background-color: #f0f0f0;
 
   &:hover{
     cursor: pointer;
-    background-color: #d0d0d0;
+    font-weight: bold;
   }
 `;
 const CategoryPlus = styled.span`
   font-size: 25px;
   &:hover{
     cursor: pointer;
-    font-weight: bold;
+    font-weight: 600;
   }
 `;
 
