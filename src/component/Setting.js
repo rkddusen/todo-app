@@ -1,13 +1,11 @@
 import { useEffect, useState, useContext } from "react";
 import styled from "styled-components";
 import Palette from './Palette';
-import ThemeContext from '../ThemeContext';
 
 function Setting(props) {
   const { category, setCategory, todo, setTodo, setIsOpen, color, setColor } = props;
   const [allCategory, setAllCategory] = useState([]);
   const [formOn, setFormOn] = useState(-1);
-  const theme = useContext(ThemeContext);
 
   useEffect(() => {
     let _allCategory = [];
@@ -15,14 +13,13 @@ function Setting(props) {
       _allCategory.push(
         <CategoryLi key={i}>
           <Category
-            color={theme.color}
             onClick={()=>{formOn === i ? setFormOn(-1) : setFormOn(i)}}
             check={formOn === i ? true : false}
           >{category[i]}</Category>
           {formOn === i ? 
           <CategoryForm>
-            <FormBtn color={theme.color} onClick={() => UpdateCategory(i)}>이름 변경</FormBtn>
-            <FormBtn color={theme.color} onClick={() => DeleteCategory(i)}>삭제</FormBtn>
+            <FormBtn onClick={() => UpdateCategory(i)}>이름 변경</FormBtn>
+            <FormBtn onClick={() => DeleteCategory(i)}>삭제</FormBtn>
             <Palette nowColor={color[i]} onChangeColor={(data)=>{
               let _color = Array.from(color);
               _color[i] = data;
@@ -36,7 +33,7 @@ function Setting(props) {
     _allCategory.push(
       <CategoryLi key={-1}>
         <CategoryPlus onClick={PlusCategory}>
-        <StyledSvg svgHover={theme.svgHover} stroke={theme.color} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></StyledSvg>
+        <StyledSvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></StyledSvg>
         </CategoryPlus>
       </CategoryLi>
     );
@@ -124,12 +121,10 @@ function Setting(props) {
 
   return (
     <StyledSetting>
-      <SettingArea areaColor={theme.areaColor}>
+      <SettingArea>
         <SettingNav>
           <SettingTitle>카테고리</SettingTitle>
-          {/* <SettingOut onClick={()=>{setIsOpen(false)}}> */}
-            <StyledSvg svgHover={theme.svgHover} stroke={theme.color} onClick={()=>{setIsOpen(false)}} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></StyledSvg>
-          {/* </SettingOut> */}
+            <StyledSvg onClick={()=>{setIsOpen(false)}} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></StyledSvg>
         </SettingNav>
           <CategoryUl>{allCategory}</CategoryUl>
       </SettingArea>
@@ -138,8 +133,9 @@ function Setting(props) {
 }
 
 const StyledSvg = styled.svg`
+ stroke: ${props => props.theme.color};
   &:hover{
-    stroke: ${props => props.svgHover};
+    stroke: ${props => props.theme.svgHover};
     cursor: pointer;
   }
 `;
@@ -158,7 +154,7 @@ const SettingArea = styled.div`
   top: 50%;
   left: 50%;
   transform: translate(-50%,-50%);
-  background-color: ${props => props.areaColor};
+  background-color: ${props => props.theme.areaColor};
   box-shadow: 0px 5px 20px rgba(0, 0, 0, 0.25);
   border-radius: 20px;
   padding: 20px;
@@ -189,7 +185,7 @@ const CategoryLi = styled.div`
 `;
 const Category = styled.span`
   padding-bottom: 2px;
-  border-bottom: 1px solid ${props => props.color};
+  border-bottom: 1px solid ${props => props.theme.color};
   font-size: 18px;
   font-weight: ${props => props.check ? 600 : "none"};
   &:hover{
