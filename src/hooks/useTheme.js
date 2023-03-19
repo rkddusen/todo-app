@@ -3,7 +3,6 @@ import { useState, useRef, useEffect } from "react";
 export const useTheme = () => {
   let initTheme = "";
   if (window.localStorage.getItem("themeMode")) {
-    console.log(window.localStorage.getItem("themeMode"));
     initTheme = window.localStorage.getItem("themeMode");
   } else {
     // 브라우저 테마 정보 확인

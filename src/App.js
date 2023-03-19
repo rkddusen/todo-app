@@ -6,7 +6,6 @@ import styled, { createGlobalStyle, ThemeProvider } from "styled-components";
 import reset from "styled-reset";
 import { lightTheme, darkTheme } from "./theme/theme";
 import { useTheme } from "./hooks/useTheme";
-import ThemeContext from "./ThemeContext";
 
 function App() {
   const [todo, setTodo] = useState([
@@ -35,9 +34,7 @@ function App() {
   const [isOpen, setIsOpen] = useState("");
 
   const [themeMode, setThemeMode] = useTheme();
-  const theme = useMemo(() => {
-    return themeMode === "light" ? lightTheme : darkTheme;
-  }, [themeMode]);
+  const theme = themeMode === "light" ? lightTheme : darkTheme;
 
   useEffect(() => {
     let _cateform = [];
@@ -110,28 +107,26 @@ function App() {
   }, [category, todo, isOpen, color]);
 
   return (
-    <ThemeContext.Provider value={theme}>
-      <ThemeProvider theme={theme}>
-        <GlobalStyle />
-        <StyledApp>
-          <Padding>
-            <TodoBox>
-              <Nav
-                category={category}
-                setCategory={setCategory}
-                todo={todo}
-                setTodo={setTodo}
-                color={color}
-                setColor={setColor}
-                themeMode={themeMode}
-                setThemeMode={setThemeMode}
-              ></Nav>
-              {cateForm}
-            </TodoBox>
-          </Padding>
-        </StyledApp>
-      </ThemeProvider>
-    </ThemeContext.Provider>
+    <ThemeProvider theme={theme}>
+      <GlobalStyle />
+      <StyledApp>
+        <Padding>
+          <TodoBox>
+            <Nav
+              category={category}
+              setCategory={setCategory}
+              todo={todo}
+              setTodo={setTodo}
+              color={color}
+              setColor={setColor}
+              themeMode={themeMode}
+              setThemeMode={setThemeMode}
+            ></Nav>
+            {cateForm}
+          </TodoBox>
+        </Padding>
+      </StyledApp>
+    </ThemeProvider>
   );
 }
 

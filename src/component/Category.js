@@ -1,7 +1,6 @@
-import { useState, useEffect, useContext } from "react";
+import { useState, useEffect } from "react";
 import Form from "./Form";
 import styled from "styled-components";
-import ThemeContext from '../ThemeContext';
 
 function Category(props) {
   const { category, color, todo, onCreate, onUpdate, onDelete, isOpen, setIsOpen, onDone } =
@@ -9,7 +8,6 @@ function Category(props) {
   const [isAdd, setIsAdd] = useState(false);
   const [todoForm, setTodoForm] = useState([]);
   const [isUpdate, setIsUpdate] = useState(-1);
-  const theme = useContext(ThemeContext);
 
   useEffect(() => {
     if (isOpen !== "" && isOpen !== category && (isAdd || isUpdate !== -1)) {
@@ -36,9 +34,9 @@ function Category(props) {
           <TodoList color={color}>
             <TodoLeft>
               {todo[i].done ? 
-              <StyledSquare onClick={()=>{onDone(todo[i].id)}} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></StyledSquare>
+              <StyledSquare onClick={()=>{onDone(todo[i].id)}} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#424242" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="9 11 12 14 22 4"></polyline><path d="M21 12v7a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11"></path></StyledSquare>
               :
-              <StyledSquare onClick={()=>{onDone(todo[i].id)}} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#000000" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></StyledSquare>
+              <StyledSquare onClick={()=>{onDone(todo[i].id)}} xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#424242" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></StyledSquare>
               }
             
               <StyledDesc done={todo[i].done}>{todo[i].desc}</StyledDesc>
@@ -50,7 +48,7 @@ function Category(props) {
                     setIsUpdate(-1);
                   }}
                 >
-                  <StyledSvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></StyledSvg>
+                  <StyledSvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#424242" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></StyledSvg>
                 </IsUpdateDeleteBtn>
               ) : (
                 <IsUpdateDeleteBtn
@@ -58,7 +56,7 @@ function Category(props) {
                     setIsUpdate(i);
                   }}
                 >
-                  <StyledSvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></StyledSvg>
+                  <StyledSvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#424242" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M20 14.66V20a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h5.34"></path><polygon points="18 2 22 6 12 16 8 16 8 12 18 2"></polygon></StyledSvg>
                 </IsUpdateDeleteBtn>
               )}
               <IsUpdateDeleteBtn
@@ -72,7 +70,7 @@ function Category(props) {
                   }
                 }}
               >
-                <StyledSvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#666666" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></StyledSvg>
+                <StyledSvg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#424242" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="3 6 5 6 21 6"></polyline><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path><line x1="10" y1="11" x2="10" y2="17"></line><line x1="14" y1="11" x2="14" y2="17"></line></StyledSvg>
               </IsUpdateDeleteBtn>
             </TodoRight>
           </TodoList>
@@ -94,7 +92,7 @@ function Category(props) {
 
   return (
     <StyledCategory>
-      <Title line={theme.color}>
+      <Title>
         <TitleLeft>
           <StyledSquare xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill={color} stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect></StyledSquare>
           <p>{category}</p>
@@ -106,9 +104,9 @@ function Category(props) {
             }}
           >
             {isAdd ? 
-              <StyledSvg svgHover={theme.svgHover} stroke={theme.color} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></StyledSvg> 
+              <StyledSvgPlus xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></StyledSvgPlus> 
               :
-              <StyledSvg svgHover={theme.svgHover} stroke={theme.color} xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></StyledSvg>
+              <StyledSvgPlus xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><line x1="5" y1="12" x2="19" y2="12"></line></StyledSvgPlus>
             }
           </IsAddBtn>
         </div>
@@ -131,7 +129,13 @@ function Category(props) {
 
 const StyledSvg = styled.svg`
   &:hover{
-    stroke: ${props => props.svgHover ? props.svgHover : 'black'};
+    stroke: black;
+  }
+`;
+const StyledSvgPlus = styled.svg`
+  stroke: ${props => props.theme.color};
+  &:hover{
+    stroke: ${props => props.theme.svgHover};
   }
 `;
 const StyledSquare = styled.svg`
@@ -146,7 +150,7 @@ const StyledCategory = styled.div`
   margin: 10px 0 30px 0;
 `;
 const Title = styled.div`
-  border-bottom: 2px solid ${props => props.line};
+  border-bottom: 2px solid ${props => props.theme.color};
   display: flex;
   justify-content: space-between;
   padding: 10px;
